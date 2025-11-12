@@ -80,7 +80,7 @@ Log out
 Generate and record a strong password
 
 ```
-W(@yX;.~JK9W;?x28xe4
+W(@yX;REDACTED;?x28xe4
 ```
 
 Log in as the root user
@@ -91,7 +91,7 @@ Click 'Create user'
 
 User name: `bedrock`
 Provide user access to the AWS Management Console: `Yes`
-Console password: `W(@yX;.~JK9W;?x28xe4`
+Console password: `W(@yX;REDACTED;?x28xe4`
 Users must create a new password at next login: `No`
 
 Click 'Next'
@@ -103,7 +103,7 @@ Click 'Next'
 
 Click 'Create user'
 
-Record the authentication URL: https://496170005851.signin.aws.amazon.com/console
+Record the authentication URL: https://000000000000.signin.aws.amazon.com/console
 
 Click 'Return to users list'
 
@@ -135,8 +135,8 @@ Click `Create access key`
 
 Record the access key and secret access key values
 
-- Access key: `AKIAXHBQJOVNTRYAMK6B`
-- Secret access key: `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`
+- Access key: `AAAAAAAAAAAAAAAA`
+- Secret access key: `AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA`
 - Default region name: `us-east-1`
 
 Click 'Done'
@@ -151,9 +151,9 @@ Log out
 
 Log in as the `bedrock` user
 
-Authentication URL: https://496170005851.signin.aws.amazon.com/console
+Authentication URL: https://000000000000.signin.aws.amazon.com/console
 IAM username: `bedrock`
-Password: `W(@yX;.~JK9W;?x28xe4`
+Password: `W(@yX;REDACTED;?x28xe4`
 
 Amazon Bedrock > API keys
 https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/api-keys?tab=short-term
@@ -270,7 +270,7 @@ Copy the external IP address when it's available
 Use the SSH key pair to authenticate your SSH session at the machine's external IP address
 
 ```
-[you@laptop cloud.google.com]$ BEDROCK_DEV=34.11.54.35
+[you@laptop cloud.google.com]$ BEDROCK_DEV=11.22.33.44
 ```
 
 ```
@@ -282,11 +282,11 @@ Use the SSH key pair to authenticate your SSH session at the machine's external 
 ```
 
 ```
-The authenticity of host '34.11.54.35 (34.11.54.35)' can't be established.
+The authenticity of host '11.22.33.44 (11.22.33.44)' can't be established.
 ED25519 key fingerprint is SHA256:9XTlpuHG5tSGwwjMn4ApnkN832CDeVlmm+OG7TMvk7M.
 This key is not known by any other names.
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Warning: Permanently added '34.11.54.35' (ED25519) to the list of known hosts.
+Warning: Permanently added '11.22.33.44' (ED25519) to the list of known hosts.
 [neil@bedrock ~]$
 ```
 ## 2.4 Install software
@@ -485,8 +485,8 @@ Configure the default profile of the AWS CLI
 ```
 
 ```
-AWS Access Key ID [None]: AKIAXHBQJOVNTRYAMK6B
-AWS Secret Access Key [None]: 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
+AWS Access Key ID [None]: AAAAAAAAAAAAAAAA
+AWS Secret Access Key [None]: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 Default region name [None]: us-east-1
 Default output format [None]: json
 ```
@@ -515,8 +515,8 @@ output = json
 ```
 ((bedrock))[neil@bedrock ~]$ cat ~/.aws/credentials
 [default]
-aws_access_key_id = AKIAXHBQJOVNTRYAMK6B
-aws_secret_access_key = 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
+aws_access_key_id = AAAAAAAAAAAAAAAA
+aws_secret_access_key = AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 ```
 
 ## 3.3 Use AWS CLI Bedrock command to list foundation models
