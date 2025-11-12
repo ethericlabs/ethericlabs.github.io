@@ -5,16 +5,18 @@
 - Created: `2025-11-10-Mon-0915`
 - Last updated: `2025-11-11-Tue-1530`
 
+
 # References
 
 Amazon Bedrock Workshop
-https://catalog.us-east-1.prod.workshops.aws/amazon-bedrock/en-US
+- https://catalog.us-east-1.prod.workshops.aws/amazon-bedrock/en-US
 
 Amazon Bedrock user guide
-https://docs.aws.amazon.com/bedrock/latest/userguide
+- https://docs.aws.amazon.com/bedrock/latest/userguide
 
 Documents and user guides
-https://docs.aws.amazon.com/bedrock
+- https://docs.aws.amazon.com/bedrock
+
 
 # Caveat
 
@@ -24,36 +26,36 @@ This worked when I tested it. AWS documents, products, features and processes ch
 
 1 Amazon Web Services
 
-1.1 Create an AWS user group
-1.2 Create an AWS user
-1.3 Create an access key for the user `bedrock`
+- 1.1 Create an AWS user group
+- 1.2 Create an AWS user
+- 1.3 Create an access key for the user `bedrock`
 
 2 Development machine
 
-2.1 Create an OpenSSH key pair
-2.2 Create a development machine
-2.3 Connect to the development machine
-2.4 Install software
-2.5 Use cURL to list foundation models
+- 2.1 Create an OpenSSH key pair
+- 2.2 Create a development machine
+- 2.3 Connect to the development machine
+- 2.4 Install software
+- 2.5 Use cURL to list foundation models
 
 3 Bedrock commands in the AWS CLI
 
-3.1 Install the AWS CLI
-3.2 Authenticate as an IAM user with AWS CLI
-3.3 Use AWS CLI Bedrock command to list foundation models
+- 3.1 Install the AWS CLI
+- 3.2 Authenticate as an IAM user with AWS CLI
+- 3.3 Use AWS CLI Bedrock command to list foundation models
 
 4 Bedrock command in Python
 
-4.1 Install `boto3`
-4.2 Use a Python script to list foundation models
-4.3 Use a Python script to interact with InvokeModel
-4.4 Use a Python script to interact with Converse
+- 4.1 Install `boto3`
+- 4.2 Use a Python script to list foundation models
+- 4.3 Use a Python script to interact with InvokeModel
+- 4.4 Use a Python script to interact with Converse
 
 5 Tear down
 
-5.1 Amazon Web Services
-5.2 Google Cloud Platform
-5.3 Laptop
+- 5.1 Amazon Web Services
+- 5.2 Google Cloud Platform
+- 5.3 Laptop
 
 
 # 1 Amazon Web Services
@@ -62,14 +64,14 @@ Assuming you only have a root user account, set up a new user with appropriate p
 
 ## 1.1 Create an AWS user group
 
-Log in as the root user
+Log in as the root user in one of the regions recommended by the AWS workshop
 
 https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/groups
 
 Click 'Create group'
 
-User group name: `bedrock-users`
-Attach permissions: `AmazonBedrockLimitedAccess`
+- User group name: `bedrock-users`
+- Attach permissions: `AmazonBedrockLimitedAccess`
 
 Click 'Create user group'
 
@@ -89,15 +91,15 @@ https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users
 
 Click 'Create user'
 
-User name: `bedrock`
-Provide user access to the AWS Management Console: `Yes`
-Console password: `W(@yX;REDACTED;?x28xe4`
-Users must create a new password at next login: `No`
+- User name: `bedrock`
+- Provide user access to the AWS Management Console: `Yes`
+- Console password: `W(@yX;REDACTED;?x28xe4`
+- Users must create a new password at next login: `No`
 
 Click 'Next'
 
-Permissions options: `Add user to group`
-User groups: `bedrock-users`
+- Permissions options: `Add user to group`
+- User groups: `bedrock-users`
 
 Click 'Next'
 
@@ -151,9 +153,9 @@ Log out
 
 Log in as the `bedrock` user
 
-Authentication URL: https://000000000000.signin.aws.amazon.com/console
-IAM username: `bedrock`
-Password: `W(@yX;REDACTED;?x28xe4`
+- Authentication URL: https://000000000000.signin.aws.amazon.com/console
+- IAM username: `bedrock`
+- Password: `W(@yX;REDACTED;?x28xe4`
 
 Amazon Bedrock > API keys
 https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/api-keys?tab=short-term
@@ -224,23 +226,23 @@ Google Cloud Platform > Compute Engine > Create an instance
 
 ### Machine configuration
 
-Name: `bedrock`
-Region: `us-east4 (Northern Virginia)`
-Zone: `us-east4-a`
-Type: `General purpose E2 e2-standard-4 (4 vCPU, 2 core, 16Gb memory)`
+- Name: `bedrock`
+- Region: `us-east4 (Northern Virginia)`
+- Zone: `us-east4-a`
+- Type: `General purpose E2 e2-standard-4 (4 vCPU, 2 core, 16Gb memory)`
 
 For reference, this costs about USD 0.15 per hour
 
 ### OS and storage
 
-Operating system: `CentOS`
-Version: `CentOS Stream 10`
-Boot disk type: `Balanced persistent disk`
-Size (Gb): `20`
+- Operating system: `CentOS`
+- Version: `CentOS Stream 10`
+- Boot disk type: `Balanced persistent disk`
+- Size (Gb): `20`
 
 ### Data protection
 
-Backups: `No backups`
+- Backups: `No backups`
 
 ### Networking
 
@@ -252,9 +254,9 @@ No changes needed
 
 ### Security
 
-Manage access > Add manually generated SSH keys > Add item
+Manage access > Add manually generated SSH keys
 
-Paste your public key
+- Add item: Paste your public key
 
 ### Advanced
 
