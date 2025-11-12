@@ -3,7 +3,15 @@
 - Author: `Neil`
 - Status: `Tested`
 - Created: `2025-11-10-Mon-0915`
-- Last updated: `2025-11-11-Tue-1530`
+- Last updated: `2025-11-12-Wed-1104`
+
+
+# Summary
+
+You'll see how to
+- create an AWS user in a Bedrock group with access keys and a short-term Bedrock API key
+- set up a disposable development environment on a cheap Google Cloud Platform Compute Engine instance
+- send requests to the Bedrock API with cURL, AWS CLI and Python
 
 
 # References
