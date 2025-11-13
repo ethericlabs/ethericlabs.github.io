@@ -20,6 +20,10 @@ Amazon Bedrock AgentCore pricing
 
 - https://aws.amazon.com/blogs/machine-learning/move-your-ai-agents-from-proof-of-concept-to-production-with-amazon-bedrock-agentcore/
 
+Get started with Amazon Bedrock AgentCore (AgentCore CLI)
+
+- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agentcore-get-started-toolkit.html
+
 
 # Introduction
 
