@@ -163,7 +163,7 @@ Memory manager created with identifier [ CustomerSupportSemantic-03SmFW6MAU ]
 Define an environment variable to provide the identifier to the following Python scripts 
 
 ```bash
-((agentcore-memory)) [neil@bedrock ~]$ MEMORY_IDENTIFIER="XXXXXXX"
+((agentcore-memory)) [neil@bedrock ~]$ MEMORY_IDENTIFIER="CustomerSupportSemantic-03SmFW6MAU"
 ```
 
 ### 2.2 Simulate conversation
