@@ -39,6 +39,7 @@ Bedrock AgentCore memory dashboard
 
 - https://us-east-1.console.aws.amazon.com/bedrock-agentcore/memory?region=us-east-1
 
+
 ## Short term memory
 
 Single session recall
@@ -51,6 +52,7 @@ Single session recall
 - Sessions
   - Events
       - Unencrypted event metadata
+
 
 ## Long term memory
 
