@@ -44,25 +44,20 @@ Bedrock AgentCore memory dashboard
 
 Single session recall
 
-> Session 1 prompt 1: What's the weather like in Seattle ?
-> Session 1 response 1: Pretty good
-> Session 1 prompt 2: What about tomorrow ?
-> Session 1 response 2: Also, pretty good
+- Session
+    - Events
+        - Unencrypted event metadata
 
-- Sessions
-  - Events
-      - Unencrypted event metadata
-
+```
+Session 1 prompt 1: What's the weather like in Seattle ?
+Session 1 response 1: Pretty good
+Session 1 prompt 2: What about tomorrow ?
+Session 1 response 2: Also, pretty good
+```
 
 ## Long term memory
 
 Multiple session recall
-
-> Session 1 prompt 1: Window seat, please
-> Session 1 response 1: That's booked
-
-> Session 2 prompt 1: Any seats on Friday ?
-> Session 2 response 1: Sure, would you like a window seat ?
 
 - Session
   - Events
@@ -75,6 +70,16 @@ Multiple session recall
 
 Long term memory provides personal continuity, whereas retrieval augmented generation provides data from curated resources
 
+```
+Session 1 prompt 1: Window seat, please
+Session 1 response 1: That's booked
+```
+
+```
+Session 2 prompt 1: Any seats on Friday ?
+Session 2 response 1: Sure, would you like a window seat ?
+```
+
 
 # Benefits
 
@@ -85,14 +90,16 @@ Long term memory provides personal continuity, whereas retrieval augmented gener
 
 # Getting started
 
-- 
 - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-get-started.html
 
 
-Requires `BedrockAgentCoreFullAccess` permissions on the `bedrock-users` group that was created while getting started
+This requires that the user group `bedrock-users` be given these permissions
+
+- `AmazonBedrockFullAccess`
+- `BedrockAgentCoreFullAccess`
 
 
-## 0 Set up Python
+## 1 Create and activate a Python virtual environment
 
 ```
 [neil@bedrock ~]$ python -m venv agentcore-memory
@@ -106,19 +113,26 @@ Requires `BedrockAgentCoreFullAccess` permissions on the `bedrock-users` group t
 ((agentcore-memory)) [neil@bedrock ~]$ pip install bedrock-agentcore bedrock-agentcore-starter-toolkit
 ```
 
-## 1 Create an AgentCore Memory
+
+## 2 Python to interact with memory
+
+### 2.1 Create memory
+
+Create Python code
 
 ```bash
-((agentcore-memory)) [neil@bedrock ~]$ cat << EOF > create-memory.py
+((agentcore-memory)) [neil@bedrock ~]$ cat << EOF > agentcore-memory-1-create-memory.py
 from bedrock_agentcore_starter_toolkit.operations.memory.manager import MemoryManager
 from bedrock_agentcore.memory.session import MemorySessionManager
 from bedrock_agentcore.memory.constants import ConversationalMessage, MessageRole
 from bedrock_agentcore_starter_toolkit.operations.memory.models.strategies import SemanticStrategy
 import time
 
-memory_manager = MemoryManager(region_name="us-east-1")
+region = 'us-east-1'
 
-print("Creating memory resource...")
+print( 'Create a memory manager in region [ %s ]' % ( region ) )
+
+memory_manager = MemoryManager(region_name=region)
 
 memory = memory_manager.get_or_create_memory(
     name="CustomerSupportSemantic",
@@ -131,204 +145,260 @@ memory = memory_manager.get_or_create_memory(
     ]
 )
 
-print(f"Memory ID: {memory.get('id')}")
-
-memories = memory_manager.list_memories()
-
-print(memories)
+print(f"Memory manager created with identifier [ {memory.get('id')} ]")
 EOF
 ```
 
-```bash
-((agentcore-memory)) [neil@bedrock ~]$ python create-memory.py
-```
+Run Python code
 
 ```bash
-✅ MemoryManager initialized for region: us-east-1
-Creating memory resource...
-Created memory: CustomerSupportSemantic-oWuCeU3dJK
-Created memory CustomerSupportSemantic-oWuCeU3dJK, waiting for ACTIVE status...
-Waiting for memory CustomerSupportSemantic-oWuCeU3dJK to return to ACTIVE state and strategies to reach terminal states...
-[15:19:39]    ⏳ Memory: CREATING, Strategies: 0/1 active (10s elapsed)
+((agentcore-memory)) [neil@bedrock ~]$ python agentcore-memory-1-create-memory.py
+```
+
+```text
 <snip>
-[15:22:01]    ⏳ Memory: CREATING, Strategies: 0/1 active (152s elapsed)
-[15:22:11]    ⏳ Memory: ACTIVE, Strategies: 1/1 active (162s elapsed)
-Memory CustomerSupportSemantic-oWuCeU3dJK is ACTIVE and all strategies are in terminal states (took 162 seconds)
-              ✅ Memory is ACTIVE (took 162s)
-Memory ID: CustomerSupportSemantic-oWuCeU3dJK
-[{'arn': 'arn:aws:bedrock-agentcore:us-east-1:496170005851:memory/CustomerSupportSemantic-oWuCeU3dJK', 'id': 'CustomerSupportSemantic-oWuCeU3dJK', 'status': 'ACTIVE', 'createdAt': datetime.datetime(2025, 11, 12, 15, 19, 28, 671000, tzinfo=tzlocal()), 'updatedAt': datetime.datetime(2025, 11, 12, 15, 19, 28, 932000, tzinfo=tzlocal()), 'memoryId': 'CustomerSupportSemantic-oWuCeU3dJK'}]
+Memory manager created with identifier [ CustomerSupportSemantic-03SmFW6MAU ]
 ```
 
-## 2 Write events to memory
+Define an environment variable to provide the identifier to the following Python scripts 
 
+```bash
+((agentcore-memory)) [neil@bedrock ~]$ MEMORY_IDENTIFIER="XXXXXXX"
 ```
-((agentcore-memory)) [neil@bedrock ~]$ cat << EOF > write-events-to-memory.py
+
+### 2.2 Simulate conversation
+
+Create Python code
+
+```bash
+((agentcore-memory)) [neil@bedrock ~]$ cat << EOF > agentcore-memory-2-simulate-conversation.py
 from bedrock_agentcore_starter_toolkit.operations.memory.manager import MemoryManager
 from bedrock_agentcore.memory.session import MemorySessionManager
 from bedrock_agentcore.memory.constants import ConversationalMessage, MessageRole
 from bedrock_agentcore_starter_toolkit.operations.memory.models.strategies import SemanticStrategy
 import time
 
-memory_manager = MemoryManager(region_name="us-east-1")
+memory_identifier = '${MEMORY_IDENTIFIER}'
 
-print("Creating memory resource...")
+region = 'us-east-1'
 
-memory = memory_manager.get_or_create_memory(
-    name="CustomerSupportSemantic",
-    description="Customer support memory store",
-    strategies=[
-        SemanticStrategy(
-            name="semanticLongTermMemory",
-            namespaces=['/strategies/{memoryStrategyId}/actors/{actorId}'],
-        )
-    ]
-)
+print( 'Create a session manager' )
 
-print(f"Memory ID: {memory.get('id')}")
+session_manager = MemorySessionManager( memory_id=memory_identifier, region_name=region )
 
-print( 'Simulating chat' )
-
-# Create a session to store memory events
-session_manager = MemorySessionManager(
-    memory_id=memory.get("id"),
-    region_name="us-east-1")
+print( '- Session manager created' )
 
 session = session_manager.create_memory_session(
     actor_id="User1",
     session_id="OrderSupportSession1"
 )
 
-# Write memory events (conversation turns)
-session.add_turns(
-    messages=[
-        ConversationalMessage(
-            "Hi, how can I help you today?",
-            MessageRole.ASSISTANT)],
-)
+print( '- Session created' )
 
-session.add_turns(
-    messages=[
-        ConversationalMessage(
-            "Hi, I am a new customer. I just made an order, but it hasn't arrived. The Order number is #35476",
-            MessageRole.USER)],
-)
+print( 'Simulate a conversation' )
 
-session.add_turns(
-    messages=[
-        ConversationalMessage(
-            "I'm sorry to hear that. Let me look up your order.",
-            MessageRole.ASSISTANT)],
-)
+print( '- Simulate message 1' )
 
-print( 'Retrieving chat' )
+author = MessageRole.ASSISTANT
+message = "Hi, how can I help you today?"
+print( "  - %s -- %s" % ( message, author ) )
+session.add_turns( messages=[ ConversationalMessage( message, author ) ] )
 
-# Get the last k turns in the session
-turns = session.get_last_k_turns(k=5)
+print( '- Simulate message 2' )
 
-for turn in turns:
-    print(f"Turn: {turn}")
+author = MessageRole.USER
+message = "Hi, I am a new customer. I just made an order, but it hasn't arrived. The Order number is #35476"
+print( "  - %s -- %s" % ( message, author ) )
+session.add_turns( messages=[ ConversationalMessage( message, author ) ] )
+
+print( '- Simulate message 3' )
+
+author = MessageRole.ASSISTANT
+message = "I'm sorry to hear that. Let me look up your order."
+print( "  - %s -- %s" % ( message, author ) )
+session.add_turns( messages=[ ConversationalMessage( message, author ) ] )
+
+print( 'Conversation simulated' )
 EOF
 ```
 
-```bash
-((agentcore-memory)) [neil@bedrock ~]$ python write-events-to-memory.py
-```
+Run Python code
 
 ```bash
-((agentcore-memory) ) [neil@bedrock ~]$ python write-events-to-memory.py
-✅ MemoryManager initialized for region: us-east-1
-Creating memory resource...
-Memory already exists. Using existing memory ID: CustomerSupportSemantic-oWuCeU3dJK
-🔎 Retrieving memory resource with ID: CustomerSupportSemantic-oWuCeU3dJK...
-  Found memory: CustomerSupportSemantic-oWuCeU3dJK
-Existing {'type': 'SEMANTIC', 'name': 'semanticLongTermMemory', 'description': None, 'namespaces': ['/strategies/{memoryStrategyId}/actors/{actorId}']}
-Requested {'type': 'SEMANTIC', 'name': 'semanticLongTermMemory', 'description': None, 'namespaces': ['/strategies/{memoryStrategyId}/actors/{actorId}']}
-Universal strategy validation passed for memory CustomerSupportSemantic. Strategies match: [SEMANTIC]
-Memory ID: CustomerSupportSemantic-oWuCeU3dJK
-Simulating chat
-Retrieving chat
-Turn: [{'content': {'text': "I'm sorry to hear that. Let me look up your order."}, 'role': 'ASSISTANT'}]
-Turn: [{'content': {'text': "Hi, I am a new customer. I just made an order, but it hasn't arrived. The Order number is #35476"}, 'role': 'USER'}, {'content': {'text': 'Hi, how can I help you today?'}, 'role': 'ASSISTANT'}]
+((agentcore-memory)) [neil@bedrock ~]$ python agentcore-memory-2-simulate-conversation.py
 ```
 
-## 3 Retrieve records from long term memory
-
+```text
+Create a session manager
+- Session manager created
+- Session created
+Simulate a conversation
+- Simulate message 1
+  - Hi, how can I help you today? -- MessageRole.ASSISTANT
+- Simulate message 2
+  - Hi, I am a new customer. I just made an order, but it hasn't arrived. The Order number is #35476 -- MessageRole.USER
+- Simulate message 3
+  - I'm sorry to hear that. Let me look up your order. -- MessageRole.ASSISTANT
+Conversation simulated
 ```
+
+### 2.3 Recall short term memory
+
+Create Python code
+
+```bash
+((agentcore-memory)) [neil@bedrock ~]$ cat << EOF > agentcore-memory-3-recall-short-term.py
 from bedrock_agentcore_starter_toolkit.operations.memory.manager import MemoryManager
 from bedrock_agentcore.memory.session import MemorySessionManager
 from bedrock_agentcore.memory.constants import ConversationalMessage, MessageRole
 from bedrock_agentcore_starter_toolkit.operations.memory.models.strategies import SemanticStrategy
 import time
 
-memory_manager = MemoryManager(region_name="us-east-1")
+memory_identifier = '${MEMORY_IDENTIFIER}'
 
-print("Creating memory resource...")
+region = 'us-east-1'
 
-memory = memory_manager.get_or_create_memory(
-    name="CustomerSupportSemantic",
-    description="Customer support memory store",
-    strategies=[
-        SemanticStrategy(
-            name="semanticLongTermMemory",
-            namespaces=['/strategies/{memoryStrategyId}/actors/{actorId}'],
-        )
-    ]
-)
+print( 'Create a session manager' )
 
-print(f"Memory ID: {memory.get('id')}")
+session_manager = MemorySessionManager( memory_id=memory_identifier, region_name=region )
 
-print( 'Simulating chat' )
-
-# Create a session to store memory events
-session_manager = MemorySessionManager(
-    memory_id=memory.get("id"),
-    region_name="us-east-1")
+print( '- Session manager created' )
 
 session = session_manager.create_memory_session(
     actor_id="User1",
     session_id="OrderSupportSession1"
 )
 
-# Write memory events (conversation turns)
-session.add_turns(
-    messages=[
-        ConversationalMessage(
-            "Hi, how can I help you today?",
-            MessageRole.ASSISTANT)],
-)
+print( '- Session created' )
 
-session.add_turns(
-    messages=[
-        ConversationalMessage(
-            "Hi, I am a new customer. I just made an order, but it hasn't arrived. The Order number is #35476",
-            MessageRole.USER)],
-)
+print( 'Retrieve exchanges from short term memory' )
 
-session.add_turns(
-    messages=[
-        ConversationalMessage(
-            "I'm sorry to hear that. Let me look up your order.",
-            MessageRole.ASSISTANT)],
-)
+print( '- Get the last 5 exchanges' )
 
-print( 'Retrieving chat' )
-
-# Get the last k turns in the session
 turns = session.get_last_k_turns(k=5)
 
+print( '- Got %i exchanges' % ( len(turns) ) )
+
 for turn in turns:
-    print(f"Turn: {turn}")
+    print(f"  - {turn}")
+EOF
+```
+
+Run Python code
+
+```bash
+((agentcore-memory)) [neil@bedrock ~]$ python agentcore-memory-3-recall-short-term.py
+```
+
+```text
+Create a session manager
+- Session manager created
+- Session created
+Retrieve exchanges from short term memory
+- Get the last 5 exchanges
+- Got 2 exchanges
+  - [{'content': {'text': "I'm sorry to hear that. Let me look up your order."}, 'role': 'ASSISTANT'}]
+  - [{'content': {'text': "Hi, I am a new customer. I just made an order, but it hasn't arrived. The Order number is #35476"}, 'role': 'USER'}, {'content': {'text': 'Hi, how can I help you today?'}, 'role': 'ASSISTANT'}]
+```
+
+### 2.4 Recall long term memory
+
+Create Python code
+
+```bash
+((agentcore-memory)) [neil@bedrock ~]$ cat << EOF > agentcore-memory-4-recall-long-term.py
+from bedrock_agentcore_starter_toolkit.operations.memory.manager import MemoryManager
+from bedrock_agentcore.memory.session import MemorySessionManager
+from bedrock_agentcore.memory.constants import ConversationalMessage, MessageRole
+from bedrock_agentcore_starter_toolkit.operations.memory.models.strategies import SemanticStrategy
+import time
+
+memory_identifier = '${MEMORY_IDENTIFIER}'
+
+region = 'us-east-1'
+
+print( 'Create a session manager' )
+
+session_manager = MemorySessionManager( memory_id=memory_identifier, region_name=region )
+
+print( '- Session manager created' )
+
+session = session_manager.create_memory_session(
+    actor_id="User1",
+    session_id="OrderSupportSession1"
+)
+
+print( '- Session created' )
 
 print( 'Retrieving records from long term memory' )
 
-# List all memory records
+print( '- Get long term memory records' )
+
 memory_records = session.list_long_term_memory_records(
     namespace_prefix="/"
 )
 
+print( '- Got %i records' % ( len(memory_records) ) )
+
 for record in memory_records:
+    print("--------------------------------------------------------------------")
     print(f"Memory record: {record}")
     print("--------------------------------------------------------------------")
+EOF
+```
+
+Run Python code
+
+```bash
+((agentcore-memory)) [neil@bedrock ~]$ python agentcore-memory-4-recall-long-term.py
+```
+
+```text
+Create a session manager
+- Session manager created
+- Session created
+Retrieving records from long term memory
+- Get long term memory records
+- Got 3 records
+--------------------------------------------------------------------
+Memory record: {'memoryRecordId': 'mem-9cbb5762-f197-4fdd-831a-903978ba0f26', 'content': {'text': 'The user is a new customer.'}, 'memoryStrategyId': 'semanticLongTermMemory-mGTO1bBV06', 'namespaces': ['/strategies/semanticLongTermMemory-mGTO1bBV06/actors/User1'], 'createdAt': datetime.datetime(2025, 11, 13, 14, 42, 40, 992000, tzinfo=tzlocal())}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+Memory record: {'memoryRecordId': 'mem-72b80398-75f7-4aff-adaf-663c272ad12f', 'content': {'text': "The user's order has not arrived."}, 'memoryStrategyId': 'semanticLongTermMemory-mGTO1bBV06', 'namespaces': ['/strategies/semanticLongTermMemory-mGTO1bBV06/actors/User1'], 'createdAt': datetime.datetime(2025, 11, 13, 14, 42, 40, 992000, tzinfo=tzlocal())}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+Memory record: {'memoryRecordId': 'mem-7b96a5b1-a23b-4f6a-9194-ed57ada63a59', 'content': {'text': 'The user made an order with order number #35476.'}, 'memoryStrategyId': 'semanticLongTermMemory-mGTO1bBV06', 'namespaces': ['/strategies/semanticLongTermMemory-mGTO1bBV06/actors/User1'], 'createdAt': datetime.datetime(2025, 11, 13, 14, 42, 40, 992000, tzinfo=tzlocal())}
+--------------------------------------------------------------------
+```
+
+### 2.5 Search long term memory
+
+Create Python code
+
+```bash
+((agentcore-memory)) [neil@bedrock ~]$ cat << EOF > agentcore-memory-5-search-long-term.py
+from bedrock_agentcore_starter_toolkit.operations.memory.manager import MemoryManager
+from bedrock_agentcore.memory.session import MemorySessionManager
+from bedrock_agentcore.memory.constants import ConversationalMessage, MessageRole
+from bedrock_agentcore_starter_toolkit.operations.memory.models.strategies import SemanticStrategy
+import time
+
+memory_identifier = '${MEMORY_IDENTIFIER}'
+
+region = 'us-east-1'
+
+print( 'Create a session manager' )
+
+session_manager = MemorySessionManager( memory_id=memory_identifier, region_name=region )
+
+print( '- Session manager created' )
+
+session = session_manager.create_memory_session(
+    actor_id="User1",
+    session_id="OrderSupportSession1"
+)
+
+print( '- Session created' )
 
 print( 'Perform a semantic search of long term memory' )
 
@@ -339,36 +409,70 @@ memory_records = session.search_long_term_memories(
     top_k=3
 )
 
+print( '- Got %i records' % ( len(memory_records) ) )
+
+for record in memory_records:
+    print("--------------------------------------------------------------------")
+    print(f"Memory record: {record}")
+    print("--------------------------------------------------------------------")
+EOF
 ```
+
+Run Python code
 
 ```bash
-(agentcore-memory) ) [neil@bedrock ~]$ python retrieve-records-from-long-term-memory.py
-✅ MemoryManager initialized for region: us-east-1
-Creating memory resource...
-Memory already exists. Using existing memory ID: CustomerSupportSemantic-oWuCeU3dJK
-🔎 Retrieving memory resource with ID: CustomerSupportSemantic-oWuCeU3dJK...
-  Found memory: CustomerSupportSemantic-oWuCeU3dJK
-Existing {'type': 'SEMANTIC', 'name': 'semanticLongTermMemory', 'description': None, 'namespaces': ['/strategies/{memoryStrategyId}/actors/{actorId}']}
-Requested {'type': 'SEMANTIC', 'name': 'semanticLongTermMemory', 'description': None, 'namespaces': ['/strategies/{memoryStrategyId}/actors/{actorId}']}
-Universal strategy validation passed for memory CustomerSupportSemantic. Strategies match: [SEMANTIC]
-Memory ID: CustomerSupportSemantic-oWuCeU3dJK
-Simulating chat
-Retrieving chat
-Turn: [{'content': {'text': "I'm sorry to hear that. Let me look up your order."}, 'role': 'ASSISTANT'}]
-Turn: [{'content': {'text': "Hi, I am a new customer. I just made an order, but it hasn't arrived. The Order number is #35476"}, 'role': 'USER'}, {'content': {'text': 'Hi, how can I help you today?'}, 'role': 'ASSISTANT'}, {'content': {'text': "I'm sorry to hear that. Let me look up your order."}, 'role': 'ASSISTANT'}]
-Turn: [{'content': {'text': "Hi, I am a new customer. I just made an order, but it hasn't arrived. The Order number is #35476"}, 'role': 'USER'}, {'content': {'text': 'Hi, how can I help you today?'}, 'role': 'ASSISTANT'}]
-Retrieving records from long term memory
-Memory record: {'memoryRecordId': 'mem-b13428f6-03dc-4d27-b624-12e4f338533a', 'content': {'text': 'The user made an order with order number #35476.'}, 'memoryStrategyId': 'semanticLongTermMemory-UOxqslER9W', 'namespaces': ['/strategies/semanticLongTermMemory-UOxqslER9W/actors/User1'], 'createdAt': datetime.datetime(2025, 11, 12, 15, 44, 50, 267000, tzinfo=tzlocal())}
---------------------------------------------------------------------
-Memory record: {'memoryRecordId': 'mem-ccf75b23-0a0c-4452-9756-2528cf8010fe', 'content': {'text': 'The user is a new customer.'}, 'memoryStrategyId': 'semanticLongTermMemory-UOxqslER9W', 'namespaces': ['/strategies/semanticLongTermMemory-UOxqslER9W/actors/User1'], 'createdAt': datetime.datetime(2025, 11, 12, 15, 44, 50, 267000, tzinfo=tzlocal())}
---------------------------------------------------------------------
-Memory record: {'memoryRecordId': 'mem-b6485257-c03f-476e-aed2-1b33eb072e15', 'content': {'text': "The user's order hasn't arrived yet."}, 'memoryStrategyId': 'semanticLongTermMemory-UOxqslER9W', 'namespaces': ['/strategies/semanticLongTermMemory-UOxqslER9W/actors/User1'], 'createdAt': datetime.datetime(2025, 11, 12, 15, 44, 50, 267000, tzinfo=tzlocal())}
---------------------------------------------------------------------
+((agentcore-memory)) [neil@bedrock ~]$ python agentcore-memory-5-search-long-term.py
+```
+
+```text
+Create a session manager
+- Session manager created
+- Session created
 Perform a semantic search of long term memory
+- Got 3 records
+--------------------------------------------------------------------
+Memory record: {'memoryRecordId': 'mem-9cbb5762-f197-4fdd-831a-903978ba0f26', 'content': {'text': 'The user is a new customer.'}, 'memoryStrategyId': 'semanticLongTermMemory-mGTO1bBV06', 'namespaces': ['/strategies/semanticLongTermMemory-mGTO1bBV06/actors/User1'], 'createdAt': datetime.datetime(2025, 11, 13, 14, 42, 40, 992000, tzinfo=tzlocal()), 'score': 0.36923698}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+Memory record: {'memoryRecordId': 'mem-72b80398-75f7-4aff-adaf-663c272ad12f', 'content': {'text': "The user's order has not arrived."}, 'memoryStrategyId': 'semanticLongTermMemory-mGTO1bBV06', 'namespaces': ['/strategies/semanticLongTermMemory-mGTO1bBV06/actors/User1'], 'createdAt': datetime.datetime(2025, 11, 13, 14, 42, 40, 992000, tzinfo=tzlocal()), 'score': 0.36800358}
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+Memory record: {'memoryRecordId': 'mem-7b96a5b1-a23b-4f6a-9194-ed57ada63a59', 'content': {'text': 'The user made an order with order number #35476.'}, 'memoryStrategyId': 'semanticLongTermMemory-mGTO1bBV06', 'namespaces': ['/strategies/semanticLongTermMemory-mGTO1bBV06/actors/User1'], 'createdAt': datetime.datetime(2025, 11, 13, 14, 42, 40, 992000, tzinfo=tzlocal()), 'score': 0.36460194}
+--------------------------------------------------------------------
 ```
 
-## 4 Tear down
+### 2.6 Delete memory
 
+Create Python code
+
+```bash
+((agentcore-memory)) [neil@bedrock ~]$ cat << EOF > agentcore-memory-6-delete-memory.py
+from bedrock_agentcore_starter_toolkit.operations.memory.manager import MemoryManager
+from bedrock_agentcore.memory.session import MemorySessionManager
+from bedrock_agentcore.memory.constants import ConversationalMessage, MessageRole
+from bedrock_agentcore_starter_toolkit.operations.memory.models.strategies import SemanticStrategy
+import time
+
+memory_identifier = '${MEMORY_IDENTIFIER}'
+
+region = 'us-east-1'
+
+print( 'Create a memory manager' )
+
+memory_manager = MemoryManager( region_name=region )
+
+memory_manager.delete_memory( memory_id=memory_identifier )
+
+EOF
 ```
-memory_manager.delete_memory(memory_id=memory.get("id"))
+
+Run Python code
+
+```bash
+((agentcore-memory)) [neil@bedrock ~]$ python agentcore-memory-6-delete-memory.py
+```
+
+```text
+<snip>
+Deleted memory: CustomerSupportSemantic-03SmFW6MAU
 ```
