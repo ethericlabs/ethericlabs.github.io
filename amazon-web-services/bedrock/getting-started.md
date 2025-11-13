@@ -493,7 +493,7 @@ aws-cli/2.31.33 Python/3.13.9 Linux/6.12.0-140.el10.x86_64 exe/x86_64.centos.10
 
 ## 3.2 Authenticate as an IAM user with AWS CLI
 
-https://docs.aws.amazon.com/cli/latest/userguide/cli-authentication-user.html
+- https://docs.aws.amazon.com/cli/latest/userguide/cli-authentication-user.html
 
 Configure the default profile of the AWS CLI
 
@@ -559,9 +559,10 @@ After creating the `bedrock` user and configuring the AWS CLI with the access ke
 
 If you need to create and activate a Python virtual environment, see 2 Software installation
 
+
 ## 4.1 Install `boto3`
 
-https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html
+- https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html
 
 Install the latest version (recommended)
 
@@ -589,7 +590,7 @@ Install a version no newer than 1.15.3
 
 ## 4.2 Use a Python script to list foundation models
 
-https://docs.aws.amazon.com/bedrock/latest/userguide/models-get-info.html
+- https://docs.aws.amazon.com/bedrock/latest/userguide/models-get-info.html
 
 Create the script
 
@@ -605,9 +606,9 @@ models = response["modelSummaries"]
 print( 'Got %s models' % ( len( models ) ) )
 
 for model in models:
-    print( model["modelName"] )
+    print( "# %s\n" % model["modelName"] )
     print( json.dumps(model, indent=2 ) )
-    print( '----' )
+    print( )
 EOF
 ```
 
@@ -650,7 +651,7 @@ Stable Image Fast Upscale
 Create the script
 
 ```bash
-((bedrock))[neil@bedrock ~]$ cat << EOF > invoke-model.py
+((bedrock))[neil@bedrock ~]$ cat << EOF > invoke.py
 import boto3
 import json
 
@@ -680,7 +681,7 @@ EOF
 Run the script
 
 ```bash
-((bedrock))[neil@bedrock ~]$ python invoke-model.py
+((bedrock))[neil@bedrock ~]$ python invoke.py
 ```
 
 ```
