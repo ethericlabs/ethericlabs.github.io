@@ -38,7 +38,6 @@ Home page
 - https://www.crewai.com/
 
 
-
 ## Strands Agents
 
 Home page
