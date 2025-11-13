@@ -1,17 +1,14 @@
 # [Amazon Web Services](../README.md) / [Bedrock](README.md) / Getting started
 
-- Author: `Neil`
-- Status: `Tested`
-- Created: `2025-11-10-Mon-0915`
-- Last updated: `2025-11-12-Wed-1104`
-
 
 # Summary
 
-You'll see how to
+How to
 - create an AWS user in a Bedrock group with access keys and a short-term Bedrock API key
 - set up a disposable development environment on a cheap Google Cloud Platform Compute Engine instance
 - send requests to the Bedrock API with cURL, AWS CLI and Python
+
+Have a way to securely generate and store sensitive data
 
 
 # References
@@ -43,8 +40,7 @@ This worked when I tested it. AWS documents, products, features and processes ch
 - 2.1 Create an OpenSSH key pair
 - 2.2 Create a development machine
 - 2.3 Connect to the development machine
-- 2.4 Install software
-- 2.5 Use cURL to list foundation models
+- 2.4 Use cURL to list foundation models
 
 3 Bedrock commands in the AWS CLI
 
@@ -101,7 +97,7 @@ Click 'Create user'
 
 - User name: `bedrock`
 - Provide user access to the AWS Management Console: `Yes`
-- Console password: `W(@yX;REDACTED;?x28xe4`
+- Console password: Custom password `W(@yX;REDACTED;?x28xe4`
 - Users must create a new password at next login: `No`
 
 Click 'Next'
@@ -299,31 +295,7 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 Warning: Permanently added '11.22.33.44' (ED25519) to the list of known hosts.
 [neil@bedrock ~]$
 ```
-## 2.4 Install software
-
-Install Git
-
-```
-[neil@bedrock ~]$ sudo dnf -y install git
-```
-Confirm that Python meets the requirements
-
-```
-[neil@bedrock ~]$ python --version
-```
-
-```
-Python 3.12.11
-```
-To use Pip, create and start a Python virtual environment
-
-```
-[neil@bedrock ~]$ python3 -m venv bedrock
-[neil@bedrock ~]$ source bedrock/bin/activate
-((bedrock))[neil@bedrock ~]$ 
-```
-
-## 2.5 Use cURL to list foundation models
+## 2.4 Use cURL to list foundation models
 
 After making the API key available as an environment variable, make a request to the API and format the JSON response
 
@@ -340,7 +312,7 @@ After making the API key available as an environment variable, make a request to
   | python -mjson.tool 
 ```
 
-Sometimes it works ... but be ready to receive a message about model use case details. Either way, we'll be foundation models from other providers.
+Sometimes it works ... but be ready to receive a message about model use case details. Either way, we'll be using foundation models from other providers for the moment.
 
 ```json
 {
@@ -384,6 +356,23 @@ The message about model use case details looks like this
 ## 3.1 Install the AWS CLI
 
 https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
+Confirm that Python meets the requirements
+
+```
+[neil@bedrock ~]$ python --version
+```
+
+```
+Python 3.12.11
+```
+To use Pip, create and start a Python virtual environment
+
+```
+[neil@bedrock ~]$ python -m venv bedrock
+[neil@bedrock ~]$ source bedrock/bin/activate
+((bedrock))[neil@bedrock ~]$ 
+```
 
 ```bash
 ((bedrock))[neil@bedrock ~]$ sudo dnf -y install unzip
@@ -468,7 +457,7 @@ Primary key fingerprint: FB5D B77F D5C1 18B8 0511  ADA8 A631 0ACC 4672 475C
 Decompress the installer
 
 ```bash
-((bedrock))[neil@bedrock ~]$ unzip awscli-exe-linux-x86_64.zip
+((bedrock))[neil@bedrock ~]$ unzip -q awscli-exe-linux-x86_64.zip
 ```
 
 Run the installer
@@ -537,6 +526,16 @@ After creating the `bedrock` user and configuring the AWS CLI with the access ke
 ((bedrock))[neil@bedrock ~]$ aws bedrock list-foundation-models
 ```
 
+```text
+{
+    "modelSummaries": [
+        {
+            "modelArn": "arn:aws:bedrock:us-east-1::foundation-model/stability.stable-fast-upscale-v1:0",
+            "modelId": "stability.stable-fast-upscale-v1:0",
+            "modelName": "Stable Image Fast Upscale",
+            "providerName": "Stability AI",
+<snip>
+```
 
 # 4 Bedrock command in Python
 
