@@ -85,8 +85,8 @@ Long term memory provides personal continuity, whereas retrieval augmented gener
 
 # Getting started
 
-Status: Incomplete ... and needs testing
-https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-get-started.html
+- 
+- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-get-started.html
 
 
 Requires `BedrockAgentCoreFullAccess` permissions on the `bedrock-users` group that was created while getting started

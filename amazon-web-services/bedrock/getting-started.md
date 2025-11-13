@@ -27,6 +27,7 @@ Documents and user guides
 
 This worked when I tested it. AWS documents, products, features and processes change.
 
+
 # Content
 
 1 Amazon Web Services
@@ -66,11 +67,12 @@ This worked when I tested it. AWS documents, products, features and processes ch
 
 Assuming you only have a root user account, set up a new user with appropriate permissions
 
+
 ## 1.1 Create an AWS user group
 
 Log in as the root user in one of the regions recommended by the AWS workshop
 
-https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/groups
+- https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/groups
 
 Click 'Create group'
 
@@ -80,6 +82,7 @@ Click 'Create group'
 Click 'Create user group'
 
 Log out
+
 
 ## 1.2 Create an AWS user
 
@@ -91,7 +94,7 @@ W(@yX;REDACTED;?x28xe4
 
 Log in as the root user
 
-https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users
+- https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users
 
 Click 'Create user'
 
@@ -119,23 +122,24 @@ Click 'Continue'
 
 Log out
 
+
 ## 1.3 Create an access key for the user `bedrock`
 
 Log in as the root user
 
 IAM > Users > `bedrock`
 
-https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users/details/bedrock?section=permissions
+- https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users/details/bedrock?section=permissions
 
 Click 'Create access key'
 
-Use case: `Command line interface (CLI)`
+- Use case: `Command line interface (CLI)`
 
 Confirmation: `Yes`
 
 Click 'Next'
 
-Description tag value: `bedrock-aws-cli`
+- Description tag value: `bedrock-aws-cli`
 
 Click `Create access key`
 
@@ -153,6 +157,7 @@ Click 'Continue'
 
 Log out
 
+
 ## 1.4 Create a Bedrock API key for the user `bedrock`
 
 Log in as the `bedrock` user
@@ -162,7 +167,8 @@ Log in as the `bedrock` user
 - Password: `W(@yX;REDACTED;?x28xe4`
 
 Amazon Bedrock > API keys
-https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/api-keys?tab=short-term
+
+- https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/api-keys?tab=short-term
 
 Make sure you're logged in with the `bedrock` account, as API keys inherit the permissions of the current user
 
@@ -177,9 +183,11 @@ Click 'Close'
 
 Log out
 
+
 # 2 Development machine
 
 To avoid installing and configuring on your actual laptop, start up a Google Cloud Platform Compute engine instance.
+
 
 ## 2.1 Create an OpenSSH key pair
 
@@ -228,6 +236,7 @@ Create an instance in your default project at https://console.cloud.google.com/c
 
 Google Cloud Platform > Compute Engine > Create an instance
 
+
 ### Machine configuration
 
 - Name: `bedrock`
@@ -237,6 +246,7 @@ Google Cloud Platform > Compute Engine > Create an instance
 
 For reference, this costs about USD 0.15 per hour
 
+
 ### OS and storage
 
 - Operating system: `CentOS`
@@ -244,17 +254,21 @@ For reference, this costs about USD 0.15 per hour
 - Boot disk type: `Balanced persistent disk`
 - Size (Gb): `20`
 
+
 ### Data protection
 
 - Backups: `No backups`
+
 
 ### Networking
 
 No changes needed (1 default interface)
 
+
 ### Observability
 
 No changes needed
+
 
 ### Security
 
@@ -262,14 +276,14 @@ Manage access > Add manually generated SSH keys
 
 - Add item: Paste your public key
 
+
 ### Advanced
 
 No changes needed
 
 
-Finally, click 'Create'
+Finally, click 'Create' and copy the external IP address when it's available
 
-Copy the external IP address when it's available
 
 ## 2.3 Connect to the development machine
 
@@ -295,6 +309,8 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 Warning: Permanently added '11.22.33.44' (ED25519) to the list of known hosts.
 [neil@bedrock ~]$
 ```
+
+
 ## 2.4 Use cURL to list foundation models
 
 After making the API key available as an environment variable, make a request to the API and format the JSON response
@@ -350,6 +366,7 @@ The message about model use case details looks like this
     "message": "Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes."
 }
 ```
+
 
 # 3 Bedrock commands in the AWS CLI
 
@@ -432,7 +449,8 @@ Import the public key
 ((bedrock))[neil@bedrock ~]$ gpg --import awscli-exe-linux-x86_64.zip.pub
 ```
 
-```gpg: directory '/home/neil/.gnupg' created
+```text
+gpg: directory '/home/neil/.gnupg' created
 gpg: /home/neil/.gnupg/trustdb.gpg: trustdb created
 gpg: key A6310ACC4672475C: public key "AWS CLI Team <aws-cli@amazon.com>" imported
 gpg: Total number processed: 1
