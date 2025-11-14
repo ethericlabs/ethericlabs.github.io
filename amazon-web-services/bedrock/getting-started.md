@@ -8,7 +8,15 @@ How to
 - set up a disposable development environment on a cheap Google Cloud Platform Compute Engine instance
 - send requests to the Bedrock API with cURL, AWS CLI and Python
 
-Have a way to securely generate and store sensitive data
+You'll need
+- a way to securely generate and store sensitive data
+- a way to create a disposable development virtual machine
+- an AWS user with the appropriate permissions
+
+I chose these ingredients, you should substitute according to your tastes
+- [Enpass](https://enpass.io)
+- Google Cloud Platform [Compute Engine](https://cloud.google.com/products/compute)
+- I explain how to use the AWS `root` user to create a user group and user with access to Bedrock
 
 
 # References
@@ -25,7 +33,7 @@ Documents and user guides
 
 # Caveat
 
-This worked when I tested it. AWS documents, products, features and processes change.
+AWS documents, products, features and processes change.
 
 
 # Content
