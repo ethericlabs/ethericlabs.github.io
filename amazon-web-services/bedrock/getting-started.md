@@ -85,7 +85,7 @@ Log in as the AWS `root` user in one of the regions recommended by the AWS works
 
 IAM > Groups
 
-- https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/groups
+- [https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/groups](https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/groups)
 
 Click 'Create group'
 
