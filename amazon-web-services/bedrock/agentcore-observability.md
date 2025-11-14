@@ -10,7 +10,7 @@ An overview of Bedrock AgentCore observability
 
 Observe your agent applications on Amazon Bedrock AgentCode Observability
 
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability.html
+- [https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability.html](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability.html)
 
 
 # Overview

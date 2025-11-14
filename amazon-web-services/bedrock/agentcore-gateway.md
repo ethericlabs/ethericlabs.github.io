@@ -10,11 +10,11 @@ An overview of Bedrock AgentCore gateway
 
 Amazon Bedrock AgentCore Gateway: Securely connect tools and other resources to your gateway
 
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway.html
+- [https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway.html](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway.html)
 
 Core concepts for Amazon Bedrock AgentCore gateway
 
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-core-concepts.html
+- [https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-core-concepts.html](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-core-concepts.html)
 
 
 # Overview

@@ -12,6 +12,10 @@ Host agent or tools with Amazon Bedrock AgentCore Runtime
 
 - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html
 
+You should write an agent
+
+- https://fly.io/blog/everyone-write-an-agent
+
 
 # Overview
 
@@ -47,3 +51,4 @@ Home page
 Documentation
 
 - https://strandsagents.com/latest/documentation/docs/
+

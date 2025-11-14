@@ -10,12 +10,11 @@ An overview of Bedrock AgentCore identity
 
 Provide identity and credential management for agent applications with Amazon Bedrock AgentCore Identity
 
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity.html
+- [https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity.html](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/identity.html)
 
 Create and manage workload identities
 
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/creating-agent-identities.html
-- 
+- [https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/creating-agent-identities.html](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/creating-agent-identities.html) 
 
 # Overview 
 

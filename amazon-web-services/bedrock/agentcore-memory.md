@@ -10,34 +10,34 @@ An overview of Bedrock AgentCore memory
 
 Add memory to your Amazon Bedrock AgentCore agent
 
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html
+- [https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html)
 
 Terminology
 
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-terminology.html
+- [https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-terminology.html](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-terminology.html)
 
 Memory strategies
 
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-strategies.html
+- [https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-strategies.html](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-strategies.html)
 
 Getting started with AgentCore memory
 
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-get-started.html
+- [https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-get-started.html](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-get-started.html)
 
 Complete list of Amazon Bedrock AgentCore memory operations in AgentCore Control
 
-- https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agentcore-control.html
+- [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agentcore-control.html](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agentcore-control.html)
 
 Complete list of Amazon Bedrock AgentCore memory operations in AgentCore
 
-- https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agentcore.html
+- [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agentcore.html](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agentcore.html)
 
 
 # Types of memory
 
 Bedrock AgentCore memory dashboard
 
-- https://us-east-1.console.aws.amazon.com/bedrock-agentcore/memory?region=us-east-1
+- [https://us-east-1.console.aws.amazon.com/bedrock-agentcore/memory?region=us-east-1](https://us-east-1.console.aws.amazon.com/bedrock-agentcore/memory?region=us-east-1)
 
 
 ## Short term memory
@@ -48,7 +48,7 @@ Single session recall
     - Events
         - Unencrypted event metadata
 
-```
+```text
 Session 1 prompt 1: What's the weather like in Seattle ?
 Session 1 response 1: Pretty good
 Session 1 prompt 2: What about tomorrow ?
@@ -70,12 +70,12 @@ Multiple session recall
 
 Long term memory provides personal continuity, whereas retrieval augmented generation provides data from curated resources
 
-```
+```text
 Session 1 prompt 1: Window seat, please
 Session 1 response 1: That's booked
 ```
 
-```
+```text
 Session 2 prompt 1: Any seats on Friday ?
 Session 2 response 1: Sure, would you like a window seat ?
 ```
@@ -90,7 +90,7 @@ Session 2 response 1: Sure, would you like a window seat ?
 
 # Getting started
 
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-get-started.html
+- [https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-get-started.html](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-get-started.html)
 
 
 This requires that the user group `bedrock-users` be given these permissions

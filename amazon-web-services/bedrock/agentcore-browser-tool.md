@@ -10,7 +10,7 @@ An overview of Bedrock AgentCore browser tool
 
 Interact with web applications using Amazon Bedrock AgentCore Browser
 
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/browser-tool.html
+- [https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/browser-tool.html](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/browser-tool.html)
 
 
 # Overview
