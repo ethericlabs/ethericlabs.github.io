@@ -1,4 +1,4 @@
-# [Amazon Web Services](../README.md) / Bedrock
+# [Home](https://ethericlabs.github.io/README.md) / [Amazon Web Services](../README.md) / Bedrock
 
 - [Getting started](getting-started.md)
 - [AgentCore](agentcore.md)

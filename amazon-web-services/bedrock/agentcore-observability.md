@@ -1,4 +1,4 @@
-# [Amazon Web Services](../README.md) / [Bedrock](README.md) / [AgentCore](agentcore.md) / AgentCore observability
+# [Home](https://ethericlabs.github.io/README.md) / [Amazon Web Services](../README.md) / [Bedrock](README.md) / [AgentCore](agentcore.md) / AgentCore observability
 
 
 # Summary
