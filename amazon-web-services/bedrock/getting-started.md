@@ -22,13 +22,13 @@ I chose these ingredients, you should substitute according to your tastes
 # References
 
 Amazon Bedrock Workshop
-- (https://catalog.us-east-1.prod.workshops.aws/amazon-bedrock/en-US)
+- [https://catalog.us-east-1.prod.workshops.aws/amazon-bedrock/en-US](https://catalog.us-east-1.prod.workshops.aws/amazon-bedrock/en-US)
 
 Amazon Bedrock user guide
-- https://docs.aws.amazon.com/bedrock/latest/userguide
+- [https://docs.aws.amazon.com/bedrock/latest/userguide](https://docs.aws.amazon.com/bedrock/latest/userguide)
 
 Documents and user guides
-- https://docs.aws.amazon.com/bedrock
+- [https://docs.aws.amazon.com/bedrock](https://docs.aws.amazon.com/bedrock)
 
 
 # Caveat
@@ -105,9 +105,11 @@ Generate and record a strong password
 W(@yX;REDACTED;?x28xe4
 ```
 
-Log in as the root user
+Log in as the AWS `root` user
 
-- https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users
+IAM > Users
+
+- [https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users](https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users)
 
 Click 'Create user'
 
@@ -138,11 +140,11 @@ Log out
 
 ## 1.3 Create an access key for the user `bedrock`
 
-Log in as the root user
+Log in as the AWS `root` user
 
 IAM > Users > `bedrock`
 
-- https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users/details/bedrock?section=permissions
+- [https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users/details/bedrock?section=permissions](https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/users/details/bedrock?section=permissions)
 
 Click 'Create access key'
 
@@ -181,7 +183,7 @@ Log in as the `bedrock` user
 
 Amazon Bedrock > API keys
 
-- https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/api-keys?tab=short-term
+- [https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/api-keys?tab=short-term](https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/api-keys?tab=short-term)
 
 Make sure you're logged in with the `bedrock` account, as API keys inherit the permissions of the current user
 
@@ -245,9 +247,9 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDMnu+hlBB7ow29NfgnBRnTwdrC8XBwhKDIJPT55goC
 
 ## 2.2 Create a development machine
 
-Create an instance in your default project at https://console.cloud.google.com/compute/instancesAdd
-
 Google Cloud Platform > Compute Engine > Create an instance
+
+- [https://console.cloud.google.com/compute/instancesAdd](https://console.cloud.google.com/compute/instancesAdd)
 
 
 ### Machine configuration
@@ -385,9 +387,9 @@ The message about model use case details looks like this
 
 ## 3.1 Install the AWS CLI
 
-https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+- [https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
-Confirm that Python meets the requirements
+Confirm that your Python meets the requirements
 
 ```
 [neil@bedrock ~]$ python --version
@@ -396,6 +398,7 @@ Confirm that Python meets the requirements
 ```
 Python 3.12.11
 ```
+
 To use Pip, create and start a Python virtual environment
 
 ```
@@ -506,7 +509,7 @@ aws-cli/2.31.33 Python/3.13.9 Linux/6.12.0-140.el10.x86_64 exe/x86_64.centos.10
 
 ## 3.2 Authenticate as an IAM user with AWS CLI
 
-- https://docs.aws.amazon.com/cli/latest/userguide/cli-authentication-user.html
+- [https://docs.aws.amazon.com/cli/latest/userguide/cli-authentication-user.html](https://docs.aws.amazon.com/cli/latest/userguide/cli-authentication-user.html)
 
 Configure the default profile of the AWS CLI
 
@@ -575,7 +578,7 @@ If you need to create and activate a Python virtual environment, see 2 Software 
 
 ## 4.1 Install `boto3`
 
-- https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html
+- [https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html)
 
 Install the latest version (recommended)
 
@@ -603,7 +606,7 @@ Install a version no newer than 1.15.3
 
 ## 4.2 Use a Python script to list foundation models
 
-- https://docs.aws.amazon.com/bedrock/latest/userguide/models-get-info.html
+- [https://docs.aws.amazon.com/bedrock/latest/userguide/models-get-info.html](https://docs.aws.amazon.com/bedrock/latest/userguide/models-get-info.html)
 
 Create the script
 
