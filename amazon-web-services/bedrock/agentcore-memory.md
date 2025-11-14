@@ -1,4 +1,4 @@
-# [Home](https://ethericlabs.github.io/README.md) / [Amazon Web Services](../README.md) / [Bedrock](README.md) / [AgentCore](agentcore.md) / AgentCore memory
+# [Home](https://ethericlabs.github.io) / [Amazon Web Services](../README.md) / [Bedrock](README.md) / [AgentCore](agentcore.md) / AgentCore memory
 
 
 # Summary

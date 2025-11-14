@@ -1,4 +1,4 @@
-# [Home](https://ethericlabs.github.io/README.md) / [Amazon Web Services](../README.md) / [Bedrock](README.md) / AgentCore
+# [Home](https://ethericlabs.github.io) / [Amazon Web Services](../README.md) / [Bedrock](README.md) / AgentCore
 
 
 # Summary
