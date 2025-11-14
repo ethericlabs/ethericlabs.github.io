@@ -22,7 +22,7 @@ I chose these ingredients, you should substitute according to your tastes
 # References
 
 Amazon Bedrock Workshop
-- https://catalog.us-east-1.prod.workshops.aws/amazon-bedrock/en-US
+- (https://catalog.us-east-1.prod.workshops.aws/amazon-bedrock/en-US)
 
 Amazon Bedrock user guide
 - https://docs.aws.amazon.com/bedrock/latest/userguide
@@ -73,12 +73,17 @@ AWS documents, products, features and processes change.
 
 # 1 Amazon Web Services
 
-Assuming you only have a root user account, set up a new user with appropriate permissions
+Assuming you only have a root user account, set up a new user group and user with appropriate permissions
 
 
 ## 1.1 Create an AWS user group
 
-Log in as the root user in one of the regions recommended by the AWS workshop
+Log in as the AWS `root` user in one of the regions recommended by the AWS workshop
+
+- US-East-1 (North Virginia)
+- US-West-2 (Oregon)
+
+IAM > Groups
 
 - https://us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/groups
 
