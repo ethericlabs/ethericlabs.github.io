@@ -7,7 +7,7 @@ AWS_ACCESS_KEY_ID = XXXXXXXXXXXXXXXX
 AWS_SECRET_ACCESS_KEY = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-Install, configure and test the AWS CLI
+Install, configure and test the AWS CLI and Python API
 
 ```
 python -m venv bedrock
