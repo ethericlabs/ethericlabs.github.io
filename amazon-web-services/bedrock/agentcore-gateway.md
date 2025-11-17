@@ -305,3 +305,11 @@ botocore.errorfactory.ResourceNotFoundException: An error occurred (ResourceNotF
 └ Model id: us.anthropic.claude-sonnet-4-20250514-v1:0
 
 ```
+
+
+Teardown
+
+
+- Gateways
+- Gateway targets
+
