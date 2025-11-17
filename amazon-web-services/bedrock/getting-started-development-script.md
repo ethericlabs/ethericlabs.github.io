@@ -51,6 +51,7 @@ gpg --verify awscli-exe-linux-x86_64.zip.sig awscli-exe-linux-x86_64.zip
 unzip -q awscli-exe-linux-x86_64.zip
 sudo aws/install
 aws --version
+mkdir ~/.aws
 cat << EOF > ~/.aws/config
 [default]
 region = us-east-1
@@ -61,6 +62,7 @@ cat << EOF > ~/.aws/credentials
 aws_access_key_id = ${AWS_ACCESS_KEY_ID}
 aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
 EOF
+aws bedrock list-foundation-models | grep modelId | awk '{ print $2 }' | sed 's/^"//' | sed 's/",$//'
 pip install boto3
 cat << EOF > list-foundation-models.py
 import boto3
