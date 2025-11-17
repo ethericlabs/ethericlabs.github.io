@@ -385,6 +385,12 @@ The message about model use case details looks like this
 
 # 3 Bedrock commands in the AWS CLI
 
+
+Also, for your convenience
+
+- [Getting started development script](getting-started-development-script.md)
+
+
 ## 3.1 Install the AWS CLI
 
 - [https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
