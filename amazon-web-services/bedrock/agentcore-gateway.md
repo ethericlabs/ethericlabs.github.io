@@ -310,6 +310,6 @@ botocore.errorfactory.ResourceNotFoundException: An error occurred (ResourceNotF
 Teardown
 
 
-- Gateways
-- Gateway targets
-
+- Bedrock gateways
+- Bedrock gateway targets
+- Cognito user pools
