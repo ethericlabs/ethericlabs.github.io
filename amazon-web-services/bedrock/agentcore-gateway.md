@@ -5,6 +5,24 @@
 
 An overview of Bedrock AgentCore gateway
 
+**Caveat**
+
+After specifying a model that does not require a scope of purpose declaration, the supplied code failed because no declaration was found when it attempted to invoke an Anthropic LLM.
+
+```text
+    # Model configuration - change if needed
+    model_id = "amazon.titan-text-lite-v1"
+```
+
+```text
+botocore.errorfactory.ResourceNotFoundException: An error occurred (ResourceNotFoundException) when calling the ConverseStream operation: Model use case details have not been submitted for this account. Fill out the Anthropic use case details form before using the model. If you have already filled out the form, try again in 15 minutes.
+<snip>
+└ Bedrock region: us-east-1
+└ Model id: us.anthropic.claude-sonnet-4-20250514-v1:0
+```
+
+Had a declaration been in place for another purpose, we would not have been aware that this data was supplied to Anthropic.
+
 
 # References
 
@@ -308,7 +326,6 @@ botocore.errorfactory.ResourceNotFoundException: An error occurred (ResourceNotF
 
 
 Teardown
-
 
 - Bedrock gateways
 - Bedrock gateway targets
