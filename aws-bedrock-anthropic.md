@@ -206,11 +206,7 @@ Click "Create access key"
 
 Copy and record the access key value 
 
-> 	AKIAXHBQJOVNRZ6WSGUQ
-
 Copy and record the secret access key value
-
-> 	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
 
 Click "Done"
 
