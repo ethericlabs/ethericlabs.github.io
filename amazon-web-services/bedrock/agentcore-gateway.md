@@ -71,12 +71,12 @@ Add a new permission policy to the `bedrock-users` group to provide
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "bedrock-users-demo",
+      "Sid": "Statement1",
       "Effect": "Allow",
       "Action": [
-        "bedrock-agentcore:*",
         "cognito-idp:*",
         "iam:*",
+        "bedrock-agentcore:*",
         "lambda:*"
       ],
       "Resource": [
